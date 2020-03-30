@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xo.shop.dao.XoOrderDao">
+  <resultMap id="BaseResultMap" type="com.xo.shop.model.XoOrder">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="order_no" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="actual_amount" jdbcType="DOUBLE" property="actual_amount" />
+    <result column="order_create_date" jdbcType="TIMESTAMP" property="order_create_date" />
+    <result column="order_create_by" jdbcType="INTEGER" property="order_create_by" />
+    <result column="discount_strategy" jdbcType="INTEGER" property="discount_strategy" />
+    <result column="discount" jdbcType="REAL" property="discount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_no, amount, actual_amount, order_create_date, order_create_by, discount_strategy, 
+    discount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from xo_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from xo_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.xo.shop.model.XoOrder" useGeneratedKeys="true">
+    insert into xo_order (order_no, amount, actual_amount, 
+      order_create_date, order_create_by, discount_strategy, 
+      discount)
+    values (#{order_no,jdbcType=VARCHAR}, #{amount,jdbcType=DOUBLE}, #{actual_amount,jdbcType=DOUBLE}, 
+      #{order_create_date,jdbcType=TIMESTAMP}, #{order_create_by,jdbcType=INTEGER}, #{discount_strategy,jdbcType=INTEGER}, 
+      #{discount,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.xo.shop.model.XoOrder" useGeneratedKeys="true">
+    insert into xo_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="order_no != null">
+        order_no,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="actual_amount != null">
+        actual_amount,
+      </if>
+      <if test="order_create_date != null">
+        order_create_date,
+      </if>
+      <if test="order_create_by != null">
+        order_create_by,
+      </if>
+      <if test="discount_strategy != null">
+        discount_strategy,
+      </if>
+      <if test="discount != null">
+        discount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="order_no != null">
+        #{order_no,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="actual_amount != null">
+        #{actual_amount,jdbcType=DOUBLE},
+      </if>
+      <if test="order_create_date != null">
+        #{order_create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order_create_by != null">
+        #{order_create_by,jdbcType=INTEGER},
+      </if>
+      <if test="discount_strategy != null">
+        #{discount_strategy,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        #{discount,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xo.shop.model.XoOrder">
+    update xo_order
+    <set>
+      <if test="order_no != null">
+        order_no = #{order_no,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="actual_amount != null">
+        actual_amount = #{actual_amount,jdbcType=DOUBLE},
+      </if>
+      <if test="order_create_date != null">
+        order_create_date = #{order_create_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="order_create_by != null">
+        order_create_by = #{order_create_by,jdbcType=INTEGER},
+      </if>
+      <if test="discount_strategy != null">
+        discount_strategy = #{discount_strategy,jdbcType=INTEGER},
+      </if>
+      <if test="discount != null">
+        discount = #{discount,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xo.shop.model.XoOrder">
+    update xo_order
+    set order_no = #{order_no,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DOUBLE},
+      actual_amount = #{actual_amount,jdbcType=DOUBLE},
+      order_create_date = #{order_create_date,jdbcType=TIMESTAMP},
+      order_create_by = #{order_create_by,jdbcType=INTEGER},
+      discount_strategy = #{discount_strategy,jdbcType=INTEGER},
+      discount = #{discount,jdbcType=REAL}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
