@@ -22,16 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/swagger**/**").permitAll()
                 .antMatchers("/index", "/static/**").permitAll()
-                .antMatchers("/dashboard").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-
-                .formLogin()
-               // .loginPage("/index").successHandler()
+                .formLogin().defaultSuccessUrl("/dashboard")
                 .failureUrl("/templates/error.html")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/templates/login.html");
+
+
     }
 
     @Override
