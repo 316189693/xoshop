@@ -2,6 +2,7 @@ package com.xo.shop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * user
@@ -29,6 +30,16 @@ public class User implements Serializable {
     private String password;
 
     private String salt;
+
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     private static final long serialVersionUID = 1L;
 

@@ -18,7 +18,7 @@
     id, `name`, purchasing_cost, price, `sets`, color, item_no, item_type, brand, vip_price, 
     purchase_date
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUserNameOrEmail" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from item

@@ -14,10 +14,43 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
+
+  <resultMap id="UserLoginMap" type="com.xo.shop.model.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="first_name" jdbcType="VARCHAR" property="first_name" />
+    <result column="last_name" jdbcType="VARCHAR" property="last_name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="created_date" jdbcType="TIMESTAMP" property="created_date" />
+    <result column="create_user_id" jdbcType="INTEGER" property="create_user_id" />
+    <result column="active" jdbcType="INTEGER" property="active" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <collection property="roles" javaType="ArrayList" ofType="Role">
+      <result property="name" column="name"/>
+    </collection>
+  </resultMap>
+
+  <resultMap id="Role" type="com.xo.shop.model.Role">
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+
   <sql id="Base_Column_List">
     id, username, first_name, last_name, email, mobile, created_date, create_user_id, 
     active, `password`, salt
   </sql>
+
+
+  <select id="selectByUserNameOrEmail" parameterType="java.lang.String" resultMap="UserLoginMap">
+    select
+    user.id, user.username, user.first_name,  user.last_name,  user.email,  user.mobile,  user.created_date,  user.create_user_id,
+     user.active,  user.`password`,  user.salt, role.name
+    from user inner join user_role_link on user.id = user_role_link.user_id and user.active = 1
+    inner join role on role.id = user_role_link.role_id and role.active = 1
+    where  username= #{usernameorEmail,jdbcType=VARCHAR} or email = #{usernameorEmail,jdbcType=VARCHAR}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
